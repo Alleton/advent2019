@@ -28,8 +28,8 @@ public class Solver {
 			}
 			case 4: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver4 Solver4 = new Solver4();
-//				System.out.println("Solution Solver4 " + Solver4.solver4(sfname));
+				Solver4 Solver4 = new Solver4();
+				System.out.println("Solution Solver4 " + Solver4.solver4(sfname));
 				break;		
 			}
 			case 5: {
