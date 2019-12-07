@@ -10,20 +10,20 @@ public class Solver {
 			{
 			case 1: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver1 solver1 = new Solver1 ();
-//				System.out.println("Solution Solver1 " + solver1.the_solver1(sfname));		
+				Solver1 solver1 = new Solver1 ();
+				System.out.println("Solution Solver1 " + solver1.the_solver1(sfname));		
 				break;		
 			}
 			case 2: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver2 solver2 = new Solver2 ();
-//				System.out.println("Solution Solver2 " + solver2.the_solver2(sfname));		
+				Solver2 solver2 = new Solver2 ();
+				System.out.println("Solution Solver2 " + solver2.the_solver2(sfname));		
 				break;		
 			}
 			case 3: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver3 Solver3 = new Solver3();
-//				System.out.println("Solution Solver3 " + Solver3.solver3 (sfname));
+				Solver3 Solver3 = new Solver3();
+				System.out.println("Solution Solver3 " + Solver3.solver3 (sfname));
 				break;		
 			}
 			case 4: {

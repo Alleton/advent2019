@@ -39,7 +39,7 @@ public class AdventView extends JFrame implements Observer{
 	
 
 	
-	public void AdventProjectView (  AdventModel adventmodel) {
+	public  AdventView (  AdventModel adventmodel) {
 		//JButton   [][] allButton;
 		allButton = new JButton [DAY_GRID][DAY_GRID];
 		

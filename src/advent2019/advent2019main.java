@@ -20,13 +20,25 @@ public class advent2019main {
 		/* MVC              */
 		/* **************** */
 		AdventModel adventmodel = new  AdventModel();
-		AdventView adventprojectview = new view.AdventView() ;
+		AdventView adventprojectview = new view.AdventView(adventmodel) ;
 		AdventController adventprojectcontroller = new AdventController(adventmodel,adventprojectview );
-		
-		//addActionListener pour les boutons
-		adventprojectview.test.addActionListener(adventprojectcontroller);
-		adventprojectview.Go.addActionListener(adventprojectcontroller);
+		try {
+			//addActionListener pour les boutons
+			adventprojectview.test.addActionListener(adventprojectcontroller);
+			adventprojectview.Go.addActionListener(adventprojectcontroller);
+	
+			for(int colIndex=0; colIndex < DAY_GRID; colIndex++){
+				for(int rowIndex=0; rowIndex < DAY_GRID; rowIndex++) {
+					adventprojectview.allButton[colIndex][rowIndex].addActionListener(adventprojectcontroller);
+					
+				}
+			}
 
+		}catch (Exception e) {
+			//throw new IllegalArgumentException("Unable to load " + sfname, e);
+			e.printStackTrace();
+		}
+		
 	}
 
 }
