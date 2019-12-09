@@ -67,7 +67,7 @@ public class Solver2 {
 									break ; 
 								}
 								parts[pos_result] = String.valueOf(resutl) ;
-								// System.out.println("result  = :" + parts[pos_result] + ":" );
+								System.out.println("result  = :" + parts[pos_result] + ":" );
 															}
 							else {
 								break ;

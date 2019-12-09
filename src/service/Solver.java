@@ -34,14 +34,14 @@ public class Solver {
 			}
 			case 5: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver5 Solver5 = new Solver5();
-//				System.out.println("Solution Solver5 " + Solver5.solver5(sfname));
+				Solver5 Solver5 = new Solver5();
+				System.out.println("Solution Solver5 " + Solver5.solver5(sfname));
 				break;		
 			}
 			case 6: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver6 Solver6 = new Solver6();
-//				System.out.println("Solution Solver6 " + Solver6.solver6(sfname));
+				Solver6 Solver6 = new Solver6();
+				System.out.println("Solution Solver6 " + Solver6.solver6(sfname));
 				break;		
 			}
 			case 7: {

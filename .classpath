@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="K:/Users/jf/Documents/GitHub/adventProject/jackson-core-2.5.4.jar"/>
 	<classpathentry kind="lib" path="K:/Users/jf/Documents/GitHub/adventProject/java-json.jar"/>
 	<classpathentry kind="lib" path="K:/Users/jf/Documents/GitHub/adventProject/javax.json-api-1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lib"/>
+	<classpathentry kind="lib" path="K:/Users/jf/Documents/GitHub/adventProject/lib/commons-lang3-3.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

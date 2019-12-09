@@ -37,8 +37,11 @@ How many different passwords within the range given in your puzzle input meet al
 
 Your puzzle input is still 387638-919123.
 
-Answer: 
+Answer: 292
  
 
 You can also [Share] this puzzle.
 
+That's the right answer! You are one gold star closer to rescuing Santa.
+
+You have completed Day 4! You can [Share] this victory or [Return to Your Advent Calendar].
