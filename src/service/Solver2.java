@@ -3,6 +3,9 @@ package service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Vector;
+
+import model.S6_object;
 
 public class Solver2 {
 	String the_solver2 (String sfname) {
@@ -19,6 +22,9 @@ public class Solver2 {
 		int resutl    = 0 ;
 		int paire = 0 ; 
 		System.out.println("filename = " + sfname );
+
+		Vector les_objets =new Vector();
+		
 		// part 2 
 		// inputs produces the output 19690720
 

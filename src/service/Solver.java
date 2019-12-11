@@ -46,8 +46,8 @@ public class Solver {
 			}
 			case 7: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver7 Solver7 = new Solver7();
-//				System.out.println("Solution Solver7 " + Solver7.solver7(sfname));
+				Solver7 Solver7 = new Solver7();
+				System.out.println("Solution Solver7 " + Solver7.solver7(sfname));
 				break;		
 			}
 			case 8: {
