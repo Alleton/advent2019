@@ -7,70 +7,145 @@ import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
 
+import model.S7_amplifier;  // la classe 
+
+
 public class Solver7 {
 
 	//String[] parts String[1000];
 	Vector instruction =new Vector();
+	int max_thruster = 0 ;					// notre but 
+	int thruster = 0 ;					// notre but
+	
 	String line = null;
-	String res_amplifier ; 
+	int res_amplifier ; 
+	String temp ;
 	int nb_instruction ; 
 	int phase_setting ;		// permier input
 	int input ;		// deuxieme input
 	int inputs[]  = new int[2]; // combining both statements in one
 	int input_number = 0 ;   	// pour lire les 2 inputs
 
-	int phase_settings [] = new int [] { 3,1,2,4,0} ;
+	int phase_settings [] = new int []  {0,1,2,3,4} ;
 
+	int test_phase_settings [] = new int [] { 0,1,2,3,4} ;
+	
+	 void permute (int[]  intArray, int start) {
+	    for(int i = start; i < intArray.length; i++){
+	        int temp = intArray[start];
+	        intArray[start] = intArray[i];
+	        intArray[i] = temp;
+	        permute(intArray, start + 1);
+	        intArray[i] = intArray[start];
+	        intArray[start] = temp;
+	    }
+	    if (start == intArray.length - 1) {
+	        // System.out.println(java.util.Arrays.toString(intArray));
+	        // appel solver7_amplificateur
+	    	thruster = solver7_amplificateur (); 
+	    	System.out.println("retour   solver7_amplificateur   " + thruster ) ;
+	    	if ( max_thruster < thruster ) {
+	    		max_thruster = thruster  ;
+	    		
+	    	}
+	    } // end start == intArray.length - 1
+//	    max_thruster = solver7_amplificateur ();
+
+	    //		 max_thruster = solver7_amplificateur ();
+	}  // end permute
+
+	
+	
 	String solver7 (String sfname) {
-
+		
+		// lecture pb
 		read_line(  sfname) ; 		// line contient les donnees 
+		
+ 		// genere les permutations
+		permute(phase_settings, 0);
+	//			if ( max_thruster < Integer.parseInt(solver7_amplificateur ( )) ) max_thruster = Integer.parseInt(solver7_amplificateur ( )) ;
+		//return (solver7_amplificateur ( )) ;
+		return String.valueOf(max_thruster );
+	}
+	// 		if ( max_thruster < Integer.parseInt(res_amplifier) ) max_thruster = Integer.parseInt(res_amplifier) ;
+	
 
+	int solver7_amplificateur () {
+		// 	public S7_amplifier ( int  nom  ,int sortie ,  String i_line , int i_phase_setting  , int i_input  ){
+		// ampli A
+		S7_amplifier ampliA = new S7_amplifier ( 0 ,1 , line ,  phase_settings [0] , 0 ) ;
+		res_amplifier = ampliA.start() ;
+		
+		// ampli B
+		S7_amplifier ampliB = new S7_amplifier ( 1 ,2 , line ,  phase_settings [1] , res_amplifier ) ;
+		res_amplifier = ampliB.start() ;
+
+		// ampli C
+		S7_amplifier ampliC = new S7_amplifier ( 2 , 3 , line ,  phase_settings [2] , res_amplifier ) ;
+		res_amplifier = ampliC.start() ;
+
+		// ampli D
+		S7_amplifier ampliD = new S7_amplifier ( 3 , 4 , line ,  phase_settings [3] , res_amplifier ) ;
+		res_amplifier = ampliD.start() ;
+
+		// ampli E
+		S7_amplifier ampliE = new S7_amplifier ( 4 , 0  , line ,  phase_settings [4] , res_amplifier ) ;
+		res_amplifier = ampliE.start() ;
+
+		
+		
+		// resultat cet essai
+		return res_amplifier ;
+		
+	}
+	
+	int solver7_amplificateur_part1 () {
+		
 		// appel amplifier 0
-		System.out.println("Appel  amplifier 0  " ) ;
+		System.out.println("Appel  solver7_amplificateur   " ) ;
 
 		input_number = 0 ;
 		inputs[0]  = phase_settings [0] ; // a modifier
 		inputs[1]  = 0 ; // fixe
 		res_amplifier= solver7_amplifier () ; 
-		System.out.println(" amplifier 0  " + res_amplifier  ) ;
+		// System.out.println(" amplifier 0  " + res_amplifier  ) ;
 
 		// amplifier  1
-		System.out.println("Appel  amplifier 1  " ) ;
+		// System.out.println("Appel  amplifier 1  " ) ;
 		input_number = 0 ;
 		inputs[0]  = phase_settings [1] ; // a modifier phase_settings
-		inputs[1]  = Integer.parseInt(res_amplifier) ;
+		inputs[1]  = res_amplifier ;
 		res_amplifier= solver7_amplifier () ; 
-		System.out.println(" amplifier 1  " + res_amplifier  ) ;
+		// System.out.println(" amplifier 1  " + res_amplifier  ) ;
 
 		// amplifier  2
-		System.out.println("Appel  amplifier 2  " ) ;
+		// System.out.println("Appel  amplifier 2  " ) ;
 		input_number = 0 ;
 		inputs[0]  = phase_settings [2] ; // a modifier phase_settings
-		inputs[1]  = Integer.parseInt(res_amplifier) ;
+		inputs[1]  = res_amplifier ;
 		res_amplifier= solver7_amplifier () ; 
-		System.out.println(" amplifier 1  " + res_amplifier  ) ;
+		// System.out.println(" amplifier 2  " + res_amplifier  ) ;
 
 
 		// amplifier  3
-		System.out.println("Appel  amplifier 3  " ) ;
+		// System.out.println("Appel  amplifier 3  " ) ;
 		input_number = 0 ;
 		inputs[0]  = phase_settings [3] ; // a modifier phase_settings
-		inputs[1]  = Integer.parseInt(res_amplifier) ;
+		inputs[1]  = res_amplifier ;
 		res_amplifier= solver7_amplifier () ; 
-		System.out.println(" amplifier 1  " + res_amplifier  ) ;
+		// System.out.println(" amplifier 3  " + res_amplifier  ) ;
 
 
 		// amplifier  4
-		System.out.println("Appel  amplifier 4  " ) ;
+		// System.out.println("Appel  amplifier 4  " ) ;
 		input_number = 0 ;
 		inputs[0]  = phase_settings [4] ; // a modifier phase_settings
-		inputs[1]  = Integer.parseInt(res_amplifier) ;
+		inputs[1]  = res_amplifier ;
 		res_amplifier= solver7_amplifier () ; 
-		System.out.println(" amplifier 1  " + res_amplifier  ) ;
+		// System.out.println(" amplifier 4  " + res_amplifier  ) ;
 
-
-
-		return "done  pass 0 "  + res_amplifier  ; 
+		//Integer.parseInt(res_amplifier) ;
+ 		return  res_amplifier  ; 
 
 
 	}
@@ -83,16 +158,13 @@ public class Solver7 {
 
 
 
-	String solver7_amplifier () {
+	int solver7_amplifier () {
 		// lecture fichier
-		System.out.println("Advent2019 Day 7 " );
-		int my_input = 5; 
-
+		// System.out.println("Advent2019 Day 7 " );
+		
 		final int POSITION_MODE = 0  ;
-		final int IMMEDIATE_MODE = 1  ;
 		int mode_of_1 ;
 		int mode_of_2 ;
-		int mode_of_3 ;
 		int op_code_2 ;
 
 
@@ -124,33 +196,15 @@ public class Solver7 {
 
 				// opcode complet
 				String opcode = parts[pointeur];
-				System.out.println(" opcode =   " + opcode  ) ;
-				//String opcode_complet = StringUtils.leftPad("123456", 10, "0") ; 
 				String opcode_complet;
 				opcode_complet = StringUtils.leftPad(opcode, 5 , "0") ;
-				System.out.println(" opcode_complet =   " + opcode_complet  ) ;
+				// System.out.println(" opcode_complet =   " + opcode_complet  ) ;
 				if ( operation == 0   ) { Runtime.getRuntime().halt (0) ; }
 
 				mode_of_1 = Integer.parseInt(StringUtils.substring(opcode_complet, 2, 3) ) ;
 				mode_of_2 = Integer.parseInt(StringUtils.substring(opcode_complet, 1, 2 ) ) ;
-				mode_of_3 = Integer.parseInt(StringUtils.substring(opcode_complet, 0, 1) ) ;
+				//mode_of_3 = Integer.parseInt(StringUtils.substring(opcode_complet, 0, 1) ) ;
 				op_code_2    = Integer.parseInt(StringUtils.substring(opcode_complet, 3, 5) )    ;
-				System.out.println(" mode_of_1 =   " + mode_of_1  ) ;
-				System.out.println(" mode_of_2 =   " + mode_of_2  ) ;
-				System.out.println(" mode_of_3 =   " + mode_of_3  ) ;
-				System.out.println(" op_code_2 =   " + op_code_2  ) ; 
-
-
-				//
-				//				//  troisieme terme
-				//				if (mode_of_3 == POSITION_MODE) {
-				//					pos_operande3 = Integer.parseInt(parts[pointeur + 3 ]) ;
-				//					operande3 = Integer.parseInt(parts[pos_operande3] ) ;
-				//
-				//				} else {
-				//					operande3 = Integer.parseInt(parts[pointeur + 3] ) ;
-				//				}
-
 
 
 				// le micro code
@@ -159,26 +213,26 @@ public class Solver7 {
 					// recherche des operandes
 					if (mode_of_1 == POSITION_MODE) {
 						pos_operande1 = Integer.parseInt(parts[pointeur +1  ]) ;
-						System.out.println(" pos_operande1 =   " + pos_operande1  ) ;
+						// System.out.println(" pos_operande1 =   " + pos_operande1  ) ;
 						operande1 = Integer.parseInt(parts[pos_operande1] ) ;
-						System.out.println(" operande1     =   " + operande1  ) ;
+						// System.out.println(" operande1     =   " + operande1  ) ;
 					} else {
 						operande1 = Integer.parseInt(parts[pointeur + 1 ] ) ;
-						System.out.println(" operande     =   " + operande1  ) ;
+						// System.out.println(" operande     =   " + operande1  ) ;
 					}
 					// deuxieme terme
 					if (mode_of_2 == POSITION_MODE) {
 						pos_operande2 = Integer.parseInt(parts[pointeur + 2 ]) ;
-						System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
+						// System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
 						operande2 = Integer.parseInt(parts[pos_operande2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 
 					} else {
 						operande2 = Integer.parseInt(parts[pointeur + 2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 					}
 
-					System.out.println(" addition  "  + parts[pos_operande1 ] + " " + parts[pos_operande2 ] ) ; 
+					// System.out.println(" addition  "  + parts[pos_operande1 ] + " " + parts[pos_operande2 ] ) ; 
 					resutl = ( operande1   + operande2   )   ;
 					pos_result = Integer.parseInt(parts[pointeur + 3 ]) ;
 					parts[pos_result] = String.valueOf(resutl) ;
@@ -187,41 +241,41 @@ public class Solver7 {
 					//					Integer.parseInt(parts[pos_operande1])  == Integer.parseInt(parts[pos_operande2]) ) {
 					//						pointeur = Integer.parseInt(parts[pointeur + 3])  ;
 
-					System.out.println(" result "  + resutl ) ; 
+					// System.out.println(" result "  + resutl ) ; 
 
 					break ;
 				case 2 :
 					// recherche des operandes
 					if (mode_of_1 == POSITION_MODE) {
 						pos_operande1 = Integer.parseInt(parts[pointeur +1  ]) ;
-						System.out.println(" pos_operande1 =   " + pos_operande1  ) ;
+						// System.out.println(" pos_operande1 =   " + pos_operande1  ) ;
 						operande1 = Integer.parseInt(parts[pos_operande1] ) ;
-						System.out.println(" operande1     =   " + operande1  ) ;
+						// System.out.println(" operande1     =   " + operande1  ) ;
 					} else {
 						operande1 = Integer.parseInt(parts[pointeur + 1 ] ) ;
-						System.out.println(" operande     =   " + operande1  ) ;
+						//System.out.println(" operande     =   " + operande1  ) ;
 					}
 					// deuxieme terme
 					if (mode_of_2 == POSITION_MODE) {
 						pos_operande2 = Integer.parseInt(parts[pointeur + 2 ]) ;
-						System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
+						// System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
 						operande2 = Integer.parseInt(parts[pos_operande2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 
 					} else {
 						operande2 = Integer.parseInt(parts[pointeur + 2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						//System.out.println(" operande2     =   " + operande2  ) ;
 					}
-					System.out.println(" addition  "  + parts[pos_operande1 ] + " " + parts[pos_operande2 ] ) ; 
+					//System.out.println(" addition  "  + parts[pos_operande1 ] + " " + parts[pos_operande2 ] ) ; 
 					resutl = ( operande1   * operande2   )   ;
-					System.out.println(" result "  + resutl ) ;
+					// System.out.println(" result "  + resutl ) ;
 					pos_result = Integer.parseInt(parts[pointeur + 3 ]) ;
 					parts[pos_result] = String.valueOf(resutl) ;
 					pointeur = pointeur + 4 ;
 
 					break ;
 				case 3 :
-					System.out.println(" opcode =   " + operation  + " input value ") ;
+					//System.out.println(" opcode =   " + operation  + " input value ") ;
 					pointeur = pointeur  + 1 ;
 					pos_result    =  Integer.parseInt(parts[pointeur]) ;
 					parts[pos_result] = String.valueOf(inputs[input_number] );	// utilisation input  input_number
@@ -229,22 +283,23 @@ public class Solver7 {
 
 					//parts[pos_result] = String.valueOf(my_input) ;
 					pointeur = pointeur  + 1 ;
-					System.out.println(" opcode 3 pos_result  =   " + pos_result  + "  valeur  " + parts[pos_result] ) ;
+					//System.out.println(" opcode 3 pos_result  =   " + pos_result  + "  valeur  " + parts[pos_result] ) ;
 					break ;
 				case 4 :
-					System.out.println(" opcode =   " + operation   + " ouput ") ;
+					//System.out.println(" opcode =   " + operation   + " ouput ") ;
 					if (mode_of_1 == POSITION_MODE) {
 						pos_result = Integer.parseInt(parts[pointeur +1  ]) ;
-						System.out.println(" pos_result =   " + pos_result + " 4  => output : "  ) ;
+						 //System.out.println(" pos_result =   " + pos_result + " 4  => output : "  ) ;
 
 					} else {
 						pos_result    =  pointeur +1  ;
-						System.out.println(" pos_result     =   " + pos_result  ) ;
+						 System.out.println(" pos_result     =   " + pos_result  ) ;
+						
 					}
 
 
 					resutl = Integer.parseInt(parts[pos_result] );
-					System.out.println(" result "  + parts[pos_result] ) ;
+					System.out.println(" pos_result =   " + pos_result + "  => output : "  + parts[pos_result] ) ;
 					resultat = resutl ;
 
 					pointeur = pointeur  + 2 ;
@@ -254,132 +309,134 @@ public class Solver7 {
 					// recherche des operandes
 					if (mode_of_1 == POSITION_MODE) {
 						pos_operande1 = Integer.parseInt(parts[pointeur +1  ]) ;
-						System.out.println(" pos_operande1 =   " + pos_operande1 + " jump-if-true: "  ) ;
+						// System.out.println(" pos_operande1 =   " + pos_operande1 + " jump-if-true: "  ) ;
 						operande1 = Integer.parseInt(parts[pos_operande1] ) ;
-						System.out.println(" operande1     =   " + operande1  ) ;
+						// System.out.println(" operande1     =   " + operande1  ) ;
 					} else {
 						operande1 = Integer.parseInt(parts[pointeur + 1 ] ) ;
-						System.out.println(" operande     =   " + operande1  ) ;
+						// System.out.println(" operande     =   " + operande1  ) ;
 					}
 					// deuxieme terme
 					if (mode_of_2 == POSITION_MODE) {
 						pos_operande2 = Integer.parseInt(parts[pointeur + 2 ]) ;
-						System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
+						// System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
 						operande2 = Integer.parseInt(parts[pos_operande2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 
 					} else {
 						operande2 = Integer.parseInt(parts[pointeur + 2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 					}
-					System.out.println(" opcode =   " + operation  ) ;
-					System.out.println(" jump if true =   " + operation  ) ;
+					// System.out.println(" opcode =   " + operation  ) ;
+					// System.out.println(" jump if true =   " + operation  ) ;
 
 					if (     operande1  != 0 ) {
 						pointeur = operande2   ;
 					} else {
 						pointeur = pointeur  + 3 ;
 					}
-					System.out.println(" new pointeur =  "  + pointeur ) ;
+					// System.out.println(" new pointeur =  "  + pointeur ) ;
 					break ;
 				case 6 :
+					//  jump-if-false:
 					// recherche des operandes
 					if (mode_of_1 == POSITION_MODE) {
 						pos_operande1 = Integer.parseInt(parts[pointeur +1  ]) ;
-						System.out.println(" pos_operande1 =   " + pos_operande1   + " jump-if-false: ") ;
+						// System.out.println(" pos_operande1 =   " + pos_operande1   + " jump-if-false: ") ;
 						operande1 = Integer.parseInt(parts[pos_operande1] ) ;
-						System.out.println(" operande1     =   " + operande1  ) ;
+						// System.out.println(" operande1     =   " + operande1  ) ;
 					} else {
 						operande1 = Integer.parseInt(parts[pointeur + 1 ] ) ;
-						System.out.println(" operande     =   " + operande1  ) ;
+						// System.out.println(" operande     =   " + operande1  ) ;
 					}
 					// deuxieme terme
 					if (mode_of_2 == POSITION_MODE) {
 						pos_operande2 = Integer.parseInt(parts[pointeur + 2 ]) ;
-						System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
+						// System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
 						operande2 = Integer.parseInt(parts[pos_operande2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 
 					} else {
 						operande2 = Integer.parseInt(parts[pointeur + 2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 					}
-					System.out.println(" opcode =   " + operation  ) ;
-					System.out.println(" jump if false =   " + operation  ) ;
+					// System.out.println(" opcode =   " + operation  ) ;
+					// System.out.println(" jump if false =   " + operation  ) ;
 					if (      operande1  == 0 ) {
 						pointeur = operande2   ;
 					} else {
 						pointeur = pointeur  + 3 ;
 					}
-					System.out.println(" new pointeur =  "  + pointeur ) ;
+					// System.out.println(" new pointeur =  "  + pointeur ) ;
 					break ;
 				case 7 :
+					// less than 
 					// recherche des operandes
 					if (mode_of_1 == POSITION_MODE) {
 						pos_operande1 = Integer.parseInt(parts[pointeur +1  ]) ;
-						System.out.println(" pos_operande1 =   " + pos_operande1 + " less than " ) ;
+						// System.out.println(" pos_operande1 =   " + pos_operande1 + " less than " ) ;
 						operande1 = Integer.parseInt(parts[pos_operande1] ) ;
-						System.out.println(" operande1     =   " + operande1  ) ;
+						// System.out.println(" operande1     =   " + operande1  ) ;
 					} else {
 						operande1 = Integer.parseInt(parts[pointeur + 1 ] ) ;
-						System.out.println(" operande     =   " + operande1  ) ;
+						// System.out.println(" operande     =   " + operande1  ) ;
 					}
 					// deuxieme terme
 					if (mode_of_2 == POSITION_MODE) {
 						pos_operande2 = Integer.parseInt(parts[pointeur + 2 ]) ;
-						System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
+						// System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
 						operande2 = Integer.parseInt(parts[pos_operande2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 
 					} else {
 						operande2 = Integer.parseInt(parts[pointeur + 2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 					}
 					pos_result =  Integer.parseInt(parts[pointeur + 3 ]) ;
 
 
-					System.out.println(" opcode =   " + operation  ) ;
-					System.out.println("  less =   " + operation  ) ;
+					// System.out.println(" opcode =   " + operation  ) ;
+					// System.out.println("  less =   " + operation  ) ;
 					// pointeur = pointeur  + 1 ;
 
 
 					if (      operande1  < operande2 ) {
 						parts[pos_result] = String.valueOf(1) ;
-						System.out.println("  less =  pos_result = " + pos_result + " 1"  ) ;
+						// System.out.println("  less =  pos_result = " + pos_result + " 1"  ) ;
 					} else {
 						parts[pos_result] = String.valueOf(0) ;
-						System.out.println("  less =  pos_result = " + pos_result + " 0"  ) ;
+						// System.out.println("  less =  pos_result = " + pos_result + " 0"  ) ;
 					}
 					pointeur = pointeur + 4 ;
-					System.out.println(" new pointeur =  "  + pointeur ) ;
+					// System.out.println(" new pointeur =  "  + pointeur ) ;
 					break ;
 				case 8 :
-					// recherche des operandes
+					// recherche des operandes de equals
 					if (mode_of_1 == POSITION_MODE) {
 						pos_operande1 = Integer.parseInt(parts[pointeur +1  ]) ;
-						System.out.println(" pos_operande1 =   " + pos_operande1  +  " equals" ) ;
+						//System.out.println(" pos_operande1 =   " + pos_operande1  +  " equals" ) ;
 						operande1 = Integer.parseInt(parts[pos_operande1] ) ;
-						System.out.println(" operande1     =   " + operande1  ) ;
+						// System.out.println(" operande1     =   " + operande1  ) ;
 					} else {
 						operande1 = Integer.parseInt(parts[pointeur + 1 ] ) ;
-						System.out.println(" operande     =   " + operande1  ) ;
+						// System.out.println(" operande     =   " + operande1  ) ;
 					}
 					// deuxieme terme
 					if (mode_of_2 == POSITION_MODE) {
 						pos_operande2 = Integer.parseInt(parts[pointeur + 2 ]) ;
-						System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
+						// System.out.println(" pos_operande2 =   " + pos_operande2  ) ;
 						operande2 = Integer.parseInt(parts[pos_operande2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 
 					} else {
 						operande2 = Integer.parseInt(parts[pointeur + 2] ) ;
-						System.out.println(" operande2     =   " + operande2  ) ;
+						// System.out.println(" operande2     =   " + operande2  ) ;
 					}
 
 					pos_result =  Integer.parseInt(parts[pointeur + 3 ]) ;
 
-					System.out.println(" opcode =   " + operation  ) ;
-					System.out.println(" equals =   " + operation  ) ;
+					// System.out.println(" opcode =   " + operation  ) ;
+					// System.out.println(" equals =   " + operation  ) ;
 					// pointeur = pointeur  + 1 ;
 					if (      operande1  == operande2 ) {
 						parts[pos_result] = String.valueOf(1) ;
@@ -387,22 +444,21 @@ public class Solver7 {
 						parts[pos_result] = String.valueOf(0) ;
 					}
 					pointeur = pointeur + 4 ;				
-					System.out.println(" new pointeur =  "  + pointeur ) ;
+					// System.out.println(" new pointeur =  "  + pointeur ) ;
 
 					break ;
 				case 99 :
-					System.out.println(" opcode =   " + operation  ) ;
-					System.out.println(" fin  "  ) ;
-					System.out.println(" resultat =   " + resultat  ) ;
+					//System.out.println(" opcode =   " + operation  ) ;
+					// System.out.println(" fin  "  ) ;
+					// System.out.println(" resultat =   " + resultat  ) ;
 					// do not halt this process but point out
 					pointeur  = parts.length + 1 ;   // provoque la sortie
 					// Runtime.getRuntime().halt(0);
 					break ;
-				}
+				} 	//end switch (op_code_2 )
 
-
-			}
-			return String.valueOf( resultat ) ;
+			}		// end while
+			return  resultat  ;
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -431,7 +487,7 @@ public class Solver7 {
 			// nomber  instruction
 			nb_instruction = parts_ori.length ; 
 			// show
-			show_intru () ;
+			// show_intru () ;
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
