@@ -1,5 +1,7 @@
 package service;
 
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,10 +10,10 @@ import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
 
-import model.S7_amplifier;  // la classe 
+import model.S9_amplifier;  // la classe 
 
 
-public class Solver7 {
+public class Solver9 {
 	
 	final  int THRUSTERS = 99 ; 
 
@@ -21,7 +23,7 @@ public class Solver7 {
 	int thruster = 0 ;					// notre but
 	
 	String line = null;
-	long res_amplifier ; 
+	long  res_amplifier ; 
 	String temp ;
 	int nb_instruction ; 
 	int phase_setting ;		// permier input
@@ -30,7 +32,7 @@ public class Solver7 {
 	int input_number = 0 ;   	// pour lire les 2 inputs
 
 	//int phase_settings [] = new int []  {0,1,2,3,4} ; // 9,8,7,6,5
-	int phase_settings [] = new int [] {9, 7, 6, 5, 8} ; //  {5,6,7,8,9} ; // 9,8,7,6,5
+	int phase_settings [] = new int [] {0, 7, 6, 5, 8} ; //  {5,6,7,8,9} ; // 9,8,7,6,5
 
 	// int test_phase_settings [] = new int [] { 0,1,2,3,4} ;
 	
@@ -45,11 +47,11 @@ public class Solver7 {
 	    }
 	    if (start == intArray.length - 1) {
 	        // System.out.println(java.util.Arrays.toString(intArray));
-	        // appel solver7_amplificateur
-	    	///////////////////thruster = solver7_amplificateur ();
+	        // appel solver9_amplificateur
+	    	///////////////////thruster = solver9_amplificateur ();
 	    	System.out.println(Arrays.toString(intArray));
-	    	thruster = solver7_amplificateur ();
-	    	// System.out.println("retour   solver7_amplificateur   " + thruster ) ;
+	    	thruster = solver9_amplificateur ();
+	    	// System.out.println("retour   solver9_amplificateur   " + thruster ) ;
 	    	
 	    	
 	    	if ( max_thruster < thruster ) {
@@ -57,58 +59,65 @@ public class Solver7 {
 	    		
 	    	}
 	    } // end start == intArray.length - 1
-//	    max_thruster = solver7_amplificateur ();
-
-	    //		 max_thruster = solver7_amplificateur ();
 	}  // end permute
 
 	
 	
-	String solver7 (String sfname) {
+	String solver9 (String sfname) {
 		//int thruster = 0;
 		// lecture pb
 		read_line(  sfname) ; 		// line contient les donnees 
 		
  		// genere les permutations
 		permute(phase_settings, 0);
-	//			if ( max_thruster < Integer.parseInt(solver7_amplificateur ( )) ) max_thruster = Integer.parseInt(solver7_amplificateur ( )) ;
-		//return (solver7_amplificateur ( )) ;
+		// pas de permutations
+    	thruster = solver9_amplificateur ();
+		
+	//			if ( max_thruster < Integer.parseInt(solver9_amplificateur ( )) ) max_thruster = Integer.parseInt(solver9_amplificateur ( )) ;
+		//return (solver9_amplificateur ( )) ;
 		return String.valueOf(max_thruster );
 	}
 	// 		if ( max_thruster < Integer.parseInt(res_amplifier) ) max_thruster = Integer.parseInt(res_amplifier) ;
 	
 
-	int solver7_amplificateur () {
-		// 	public S7_amplifier ( int  nom  ,int sortie ,  String i_line , int i_phase_setting  , int i_input  ){
+	int solver9_amplificateur () {
+		// 	public S9_amplifier ( int  nom  ,int sortie ,  String i_line , int i_phase_setting  , int i_input  ){
 		// ampli A
-		S7_amplifier ampliA = new S7_amplifier ( 0 ,1 , line ,  phase_settings [0] , 0 ) ;
+		// S9_amplifier ampliA = new S9_amplifier ( 0 ,1 , line ,  phase_settings [0] , 0 ) ;
+		// 8264953
+		//long test ; //(4234906522);
+		//test = (long )4234906522;
+		
+		 S9_amplifier ampliA = new S9_amplifier ( 0 ,1 , line , 2, 0 ) ;
 		res_amplifier = ampliA.start() ;
 		
 		System.out.println(" fin ampli A      =   " + res_amplifier  ) ;
-		
+		Runtime.getRuntime().halt(0);
 		// ampli B
-		S7_amplifier ampliB = new S7_amplifier ( 1 ,2 , line ,  phase_settings [1] , res_amplifier ) ;
+/*
+ 		S9_amplifier ampliB = new S9_amplifier ( 1 ,2 , line ,  phase_settings [1] , res_amplifier ) ;
+ 
 		System.out.println( " ");
 		System.out.println( "");
 		System.out.println( " ******************* ");
-		System.out.println( "ampliB = new S7_amplifier ");
+		System.out.println( "ampliB = new S9_amplifier ");
 		System.out.println( "");
 		
-System.out.println( "ampliB = new S7_amplifier  name     " + ampliB.getAmplifier_number());
-System.out.println( "ampliB = new S7_amplifier  pointeur " + ampliB.getAmplifier_pointeur());
+System.out.println( "ampliB = new S9_amplifier  name     " + ampliB.getAmplifier_number());
+System.out.println( "ampliB = new S9_amplifier  pointeur " + ampliB.getAmplifier_pointeur());
 		res_amplifier = ampliB.start() ;
 //mmmm
 		 // Runtime.getRuntime().halt (0) ;
 		// ampli C
-		S7_amplifier ampliC = new S7_amplifier ( 2 , 3 , line ,  phase_settings [2] , res_amplifier ) ;
+		S9_amplifier ampliC = new S9_amplifier ( 2 , 3 , line ,  phase_settings [2] , res_amplifier ) ;
 		res_amplifier = ampliC.start() ;
 
 		// ampli D
-		S7_amplifier ampliD = new S7_amplifier ( 3 , 4 , line ,  phase_settings [3] , res_amplifier ) ;
+		S9_amplifier ampliD = new S9_amplifier ( 3 , 4 , line ,  phase_settings [3] , res_amplifier ) ;
 		res_amplifier = ampliD.start() ;
 
 		// ampli E
-		S7_amplifier ampliE = new S7_amplifier ( 4 , 0  , line ,  phase_settings [4] , res_amplifier ) ;
+		S9_amplifier ampliE = new S9_amplifier ( 4 , 0  , line ,  phase_settings [4] , res_amplifier ) ;
 		res_amplifier = ampliE.start() ;
 
 		int loop = 0 ;
@@ -133,17 +142,18 @@ System.out.println( "ampliB = new S7_amplifier  pointeur " + ampliB.getAmplifier
 			
 			loop = loop + 1 ;
 			if ( loop > 100 )  break;
+
 		}
-		
+*/		
 		// resultat cet essai
 		return (int) res_amplifier ;
 		
 	}
 	
-	int solver7_amplificateur_part1 () {
+	int solver9_amplificateur_part1 () {
 		
 		// appel amplifier 0
-		System.out.println("Appel  solver7_amplificateur   " ) ;
+		System.out.println("Appel  solver9_amplificateur   " ) ;
 
 		input_number = 0 ;
 		inputs[0]  = phase_settings [0] ; // a modifier
@@ -155,7 +165,7 @@ System.out.println( "ampliB = new S7_amplifier  pointeur " + ampliB.getAmplifier
 		// System.out.println("Appel  amplifier 1  " ) ;
 		input_number = 0 ;
 		inputs[0]  = phase_settings [1] ; // a modifier phase_settings
-		inputs[1]  = (int)res_amplifier ;
+		inputs[1]  = (int) res_amplifier ;
 		res_amplifier= solver7_amplifier () ; 
 		// System.out.println(" amplifier 1  " + res_amplifier  ) ;
 
@@ -163,7 +173,7 @@ System.out.println( "ampliB = new S7_amplifier  pointeur " + ampliB.getAmplifier
 		// System.out.println("Appel  amplifier 2  " ) ;
 		input_number = 0 ;
 		inputs[0]  = phase_settings [2] ; // a modifier phase_settings
-		inputs[1]  = (int)res_amplifier ;
+		inputs[1]  = (int)  res_amplifier ;
 		res_amplifier= solver7_amplifier () ; 
 		// System.out.println(" amplifier 2  " + res_amplifier  ) ;
 
@@ -172,7 +182,7 @@ System.out.println( "ampliB = new S7_amplifier  pointeur " + ampliB.getAmplifier
 		// System.out.println("Appel  amplifier 3  " ) ;
 		input_number = 0 ;
 		inputs[0]  = phase_settings [3] ; // a modifier phase_settings
-		inputs[1]  = (int)res_amplifier ;
+		inputs[1]  = (int) res_amplifier ;
 		res_amplifier= solver7_amplifier () ; 
 		// System.out.println(" amplifier 3  " + res_amplifier  ) ;
 
@@ -181,12 +191,12 @@ System.out.println( "ampliB = new S7_amplifier  pointeur " + ampliB.getAmplifier
 		// System.out.println("Appel  amplifier 4  " ) ;
 		input_number = 0 ;
 		inputs[0]  = phase_settings [4] ; // a modifier phase_settings
-		inputs[1]  = (int)res_amplifier ;
+		inputs[1]  = (int) res_amplifier ;
 		res_amplifier= solver7_amplifier () ; 
 		// System.out.println(" amplifier 4  " + res_amplifier  ) ;
 
 		//Integer.parseInt(res_amplifier) ;
- 		return  (int)res_amplifier  ; 
+ 		return  (int) res_amplifier  ; 
 
 
 	}

@@ -52,44 +52,45 @@ public class Solver {
 			}
 			case 8: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver8 Solver8 = new Solver8();
-//				System.out.println("Solution Solver8 " + Solver8.solver8(sfname));
+				Solver8 Solver8 = new Solver8();
+				System.out.println("Solution Solver8 " + Solver8.solver8(sfname));
 				break;		
 			}
 			case 9: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver9 Solver9 = new Solver9();
-//				System.out.println("Solution Solver9 " + Solver9.solver9(sfname));
+				Solver9 Solver9 = new Solver9();
+				System.out.println("Solution Solver9 " + Solver9.solver9(sfname));
 				break;		
 			}
 			case 10: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver10 Solver10 = new Solver10();
-//				System.out.println("Solution Solver10 " + Solver10.solver10(sfname));
+				Solver10 Solver10 = new Solver10();
+				System.out.println("Solution Solver10 " + Solver10.solver10(sfname));
 				break;		
 			}
 			case 11: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver11 Solver11 = new Solver11();
-//				System.out.println("Solution Solver11 " + Solver11.solver11(sfname));
+				Solver11 Solver11 = new Solver11();
+				System.out.println("Solution Solver11 " + Solver11.solver11(sfname));
 				break;		
 			}
 			case 12: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver12 Solver12 = new Solver12();
-//				System.out.println("Solution Solver12 " + Solver12.solver12(sfname));
+				Solver12 Solver12 = new Solver12();
+				System.out.println("Solution Solver12 " + Solver12.solver12(sfname));
 				break;		
 			}
 			case 13: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver13 Solver13 = new Solver13();
-//				System.out.println("Solution Solver13 " + Solver13.solver13(sfname));
+				Solver13 Solver13 = new Solver13();
+				System.out.println("Solution Solver13 " + Solver13.solver13(sfname));
+				//SplashDemo test = new SplashDemo();
 				break;		
 			}
 			case 14: {
 				System.out.println("Chargement pb " + problem ) ; 
-//				Solver14 Solver14 = new Solver14();
-//				System.out.println("Solution Solver14 " + Solver14.solver14(sfname));
+				Solver14 Solver14 = new Solver14();
+				System.out.println("Solution Solver14 " + Solver14.solver14(sfname));
 				break;		
 			}
 			case 15: {
@@ -170,6 +171,8 @@ public class Solver {
 				System.out.println("Pas de tentative de resolution du projet : " + problem ) ;
 			}
 
+			// fin
+			//Runtime.getRuntime().halt (0) ; 
 		} catch (Exception e) {
 			//throw new IllegalArgumentException("Unable to load " + sfname, e);
 			e.printStackTrace();

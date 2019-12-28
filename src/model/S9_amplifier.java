@@ -1,21 +1,21 @@
 package model;
 
-public class S7_amplifier {
+public class S9_amplifier {
 
-	long amplifier_number ; // numero
+	int amplifier_number ; // numero
 	
-	long mode_of_1 ;
-	long mode_of_2 ;
-	long mode_of_3 ;
+	int mode_of_1 ;
+	int mode_of_2 ;
+	int mode_of_3 ;
 	
 	
-	long op_code_2 ;
-	long operation ;
+	int op_code_2 ;
+	int operation ;
 	
-	long pos_operande1 = 0 ;
-	long pos_operande2 = 0 ;
-	long pos_result = 0 ;
-	long relative_base = 0 ;
+	int pos_operande1 = 0 ;
+	int pos_operande2 = 0 ;
+	int pos_result = 0 ;
+	int relative_base = 0 ;
 	
 
 	long operande1 = 0 ;
@@ -24,25 +24,40 @@ public class S7_amplifier {
 	long resutl    = 0 ;
 	long resultat    = 0 ;
 
-	long amplifier_output ; // numero de loutput ( 99 si THRUSTERS )
+	int amplifier_output ; // numero de loutput ( 99 si THRUSTERS )
 
 
 	final  long THRUSTERS = 99 ; 
-	long amplifier_state  = 0  ; // tant que pas attelong THRUSTERS
+	
+	final int ADD	= 1 ;
+	final int MUL   = 2 ;
+	final int INPUT = 3 ;
+	final int OUTPUT = 4 ;
+	final int IF_TRUE = 5 ;
+	final int IF_FALSE = 6 ;
+	final int LESS     = 7 ;
+	final int EQUALS   = 8 ;
+	final int RELATIV  = 9 ;
+	
+	
+	
+	int amplifier_state  = 0  ; // tant que pas atteint THRUSTERS
 	
 	String line = null;
 	long res_amplifier ; 
 	long phase_setting ;		// permier input
-	long input ;		// deuxieme input
-	long inputs[]  = new long[2]; // combining both statements in one
+	int input ;		// deuxieme input
+	long inputs[]  = new long [2]; // combining both statements in one
 	
 	long pointeur ;
-	long input_number = 0 ;   	// pour lire les 2 inputs
+	int input_number = 0 ;   	// pour lire les 2 inputs
 	
 	
-	final long POSITION_MODE = 0  ;
+	final int POSITION_MODE  = 0  ;
+	final int IMMEDIATE_MODE = 1  ;
+	final int RELATIVE_MODE  = 2  ;
 	
-	long nb_instructions = 0 ;
+	int nb_instructions = 0 ;
 	
 	long[] parts = new long [3001];
 	
@@ -50,7 +65,7 @@ public class S7_amplifier {
 	
 	
 	// creation avec son numero ,  la ligne de codes 
-	public S7_amplifier ( long  nom  ,long sortie ,  String i_line , long i_phase_setting  , long i_input  ){
+	public S9_amplifier ( int  nom  ,int sortie ,  String i_line , long i_phase_setting  , int i_input  ){
 		this.amplifier_number = nom ;
 		this.amplifier_output = sortie ;
 		this.line = i_line ;
@@ -64,7 +79,7 @@ public class S7_amplifier {
 		nb_instructions = parts_string.length;  // la taille !!
 		
 		for ( int i = 0 ; i < parts_string.length ; i ++  ) {
-			parts[i] =  Integer.parseInt(parts_string[i])  ;
+			parts[i] =  Long.parseLong(parts_string[i])  ;
 		}
 		for ( int i = parts_string.length +1 ; i < parts.length -1 ; i ++  ) {
 			parts[i] =  0 ;
@@ -83,13 +98,18 @@ public class S7_amplifier {
 		this.inputs[0] = this.phase_setting ;
 		this.inputs[1] = this.input ;
 		//String[] parts =line.split(",");
+		
+		for ( int i = 0 ; i <2 ; i++ ){
+			System.out.println("inputs [ " + i + " = " + inputs[ i ]  ) ;
+		}
+		
 		start_result = run()  ;
 		System.out.println("start =  ampli " + this.amplifier_number   + " result = " + start_result ) ;
 		return start_result ; 
 	}
 
 	// relance
-	public long re_start (long i_input) {
+	public long re_start (int i_input) {
 		System.out.println(" re start =  ampli " + this.amplifier_number  ) ;
 		
 		this.amplifier_state = 0 ; 		// plus en attente 
@@ -104,10 +124,10 @@ public class S7_amplifier {
 
 
 		while ( amplifier_state == 0 ) { 
-			operation =   parts[(int)pointeur] ;
+			operation =  (int) parts[(int)pointeur];   ;
 
 			// opcode complet
-			long opcode = parts[(int)pointeur];
+			int opcode = (int)parts[(int)pointeur];
 			//String opcode_complet;
 			// opcode_complet = StringUtils.leftPad(opcode, 5 , "0") ;
 			//System.out.println(" pointeur =   " + pointeur  ) ;
@@ -125,71 +145,77 @@ public class S7_amplifier {
 			
 	// lectutr position operande 		
 			
-			//private long lecture_oper1 ( long num_oper , long mode) {
+			//private int lecture_oper1 ( int num_oper , int mode) {
 			pos_operande1 = lecture_pos_oper (1,mode_of_1 ) ;
 			pos_operande2 = lecture_pos_oper (2,mode_of_2 ) ;
-			pos_result    = parts[(int) (pointeur +3  )] ;
+			pos_result    = lecture_pos_oper (3,mode_of_3 ) ; ;
 			
-			operande1 = parts[(int)pos_operande1];
-			operande2 = parts[(int)pos_operande2];
+			operande1 = parts[pos_operande1];
+			operande2 = parts[pos_operande2];
 
 			
 			///////////////////
 			
 			// le micro code
-			switch ((int)op_code_2 ) {
-			case 1 :
-				resutl = ( operande1   + operande2   )   ;
-				parts[(int)pos_result] = resutl ;
+			switch (op_code_2 ) {
+			case ADD :
+				resutl = (long)( (long)operande1   + (long)operande2   )   ;
+				parts[pos_result] = resutl ;
 				pointeur = pointeur + 4 ;
-				// System.out.println(" result "  + resutl ) ; 
+				System.out.println("ADD  result "  + resutl ) ; 
 
 				break ;
-			case 2 :
+			case MUL :
 				//System.out.println(" multiplication  "  + parts[pos_operande1 ] + " " + parts[pos_operande2 ] ) ; 
-				resutl = ( operande1   * operande2   )   ;
-				// System.out.println("multply result "  + resutl ) ;
-				parts[(int)pos_result] = resutl ;
+				resutl = (long)( (long)operande1   * (long)operande2   )   ;
+				System.out.println("MUL result "  + resutl ) ;
+				parts[pos_result] = resutl ;
 				pointeur = pointeur + 4 ;
 
 				break ;
-			case 3 :
-				// System.out.println(" opcode =  input " + operation  + " input value ") ;
+			case INPUT :
+				 System.out.println(" opcode =  input " + operation  + " input value ") ;
 				if (input_number <= 1  ) {
 					pointeur = pointeur  + 1 ;
+					System.out.println(" opcode 3 input  =   " + inputs[input_number]  ) ;
+					System.out.println(" opcode 3 pos_operande1  =   " + pos_operande1   ) ;
 					
-					parts[(int)pos_operande1] = inputs[(int)input_number] ;	// utilisation input  input_number
+					//System.out.println(" opcode 3 input  =   " + pos_result  + "  valeur  " + parts[pos_result] ) ;
+					//System.out.println(" opcode 3 input  =   " + pos_result  + "  valeur  " + parts[pos_result] ) ;
+					
+					parts[pos_operande1] = (long) inputs[input_number] ;	// utilisation input  input_number
 					input_number = input_number + 1 ;							// la suivante
 
 					//parts[pos_result] = String.valueOf(my_input) ;
 					pointeur = pointeur  + 1 ;
-					// System.out.println(" opcode 3 input  =   " + pos_result  + "  valeur  " + parts[pos_result] ) ;
+					System.out.println(" opcode 3 input  =   " + pos_operande1  + "  valeur  " + parts[pos_operande1] ) ;
 	
 				} else {
 					input_number = input_number - 1 ;							// on va attendre 
-					amplifier_state = operation;
+					amplifier_state = (int)operation;
 				}
+				System.out.println(" opcode 3 input resultat en  =   " + pos_operande1  + "  valeur  " + parts[pos_operande1] ) ;
 				
 				break ;
-			case 4 :
+			case OUTPUT :
 				//System.out.println(" opcode =   " + operation   + " ouput ") ;
-				resutl = parts[(int)pos_operande1] ;
-				// System.out.println(" pos_result =   " + pos_result + "  => output : "  + parts[pos_result] ) ;
+				resutl = parts[pos_operande1] ;
+				System.out.println("  => output de  : "   + pos_operande1 +  " soit " + resutl ) ;
 				resultat = resutl ;
 
 				pointeur = pointeur  + 2 ;
 
 				break ;
-			case 5 :
+			case IF_TRUE :
 				// recherche des operandes
 				if (     operande1  != 0 ) {
 					pointeur = operande2   ;
 				} else {
 					pointeur = pointeur  + 3 ;
 				}
-				// System.out.println(" new pointeur =  "  + pointeur ) ;
+				 System.out.println("IF_TRUE new pointeur =  "  + pointeur ) ;
 				break ;
-			case 6 :
+			case IF_FALSE :
 				//  jump-if-false:
 				// recherche des operandes
 				if (      operande1  == 0 ) {
@@ -197,46 +223,47 @@ public class S7_amplifier {
 				} else {
 					pointeur = pointeur  + 3 ;
 				}
-				// System.out.println(" new pointeur =  "  + pointeur ) ;
+				System.out.println("IF_FALSE new pointeur =  "  + pointeur ) ;
 				break ;
-			case 7 :
+			case LESS :
 				// less than 
 				
 				if (      operande1  < operande2 ) {
-					parts[(int)pos_result] = 1 ;
-					// System.out.println("  less =  pos_result = " + pos_result + " 1"  ) ;
+					parts[pos_result] = 1 ;
+					System.out.println("LESS  pos_result = " + pos_result + " 1"  ) ;
 				} else {
-					parts[(int)pos_result] = 0 ;
+					parts[pos_result] = 0 ;
 					// System.out.println("  less =  pos_result = " + pos_result + " 0"  ) ;
 				}
 				pointeur = pointeur + 4 ;
-				// System.out.println(" new pointeur =  "  + pointeur ) ;
+				System.out.println("LESS new pointeur =  "  + pointeur ) ;
 				break ;
 				
-			case 8 :
+			case EQUALS :
 
 				// System.out.println(" opcode =   " + operation  ) ;
 				// System.out.println(" equals =   " + operation  ) ;
 				// pointeur = pointeur  + 1 ;
 				if (      operande1  == operande2 ) {
-					parts[(int)pos_result] = 1 ;
+					parts[pos_result] = 1 ;
 				} else {
-					parts[(int)pos_result] = 0 ;
+					parts[pos_result] = 0 ;
 				}
 				pointeur = pointeur + 4 ;				
-				// System.out.println(" new pointeur =  "  + pointeur ) ;
+				System.out.println("EQUALS new pointeur =  "  + pointeur ) ;
 
 				break ;
 
-			case 9 :
-				relative_base = relative_base + operande1 ;
+			case RELATIV :
+				relative_base = relative_base + (int)operande1 ;
 				pointeur = pointeur + 2 ;
+				System.out.println("RELATIV new relativ =  "  + relative_base ) ;
 				break ;
 			case 99 :
 				//System.out.println(" opcode =   " + operation  ) ;
 				// System.out.println(" fin  "  ) ;
 				// System.out.println(" resultat =   " + resultat  ) ;
-				// do not halt this process but polong out
+				// do not halt this process but point out
 				// pointeur  = parts.length + 1 ;   // provoque la sortie
 				// Runtime.getRuntime().halt(0);
 				amplifier_state = operation;           // provoque la sortie
@@ -256,13 +283,13 @@ public class S7_amplifier {
 	 * 
 	 * @return the amplifier_number
 	 */
-	public long getAmplifier_number() {
+	public int getAmplifier_number() {
 		return amplifier_number;
 	}
 	/**
 	 * @param amplifier_number the amplifier_number to set
 	 */
-	public void setAmplifier_number(long amplifier_number) {
+	public void setAmplifier_number(int amplifier_number) {
 		this.amplifier_number = amplifier_number;
 	}
 
@@ -275,7 +302,7 @@ public class S7_amplifier {
 	/**
 	 * @param res_amplifier the res_amplifier to set
 	 */
-	public void setRes_amplifier(long res_amplifier) {
+	public void setRes_amplifier(int res_amplifier) {
 		this.res_amplifier = res_amplifier;
 	}
 	/**
@@ -287,26 +314,32 @@ public class S7_amplifier {
 	/**
 	 * @param phase_setting the phase_setting to set
 	 */
-	public void setPhase_setting(long phase_setting) {
+	public void setPhase_setting(int phase_setting) {
 		this.phase_setting = phase_setting;
 	}
 	/**
 	 * @param input the input to set
 	 */
-	public void setInput(long input) {
+	public void setInput(int input) {
 		this.input = input;
+	}
+	/**
+	 * @param inputs the inputs to set
+	 */
+	public void setInputs(long[] inputs) {
+		this.inputs = inputs;
 	}
 
 	/**
 	 * @return the amplifier_output
 	 */
-	public long getAmplifier_output() {
+	public int getAmplifier_output() {
 		return amplifier_output;
 	}
 	/**
 	 * @param amplifier_output the amplifier_output to set
 	 */
-	public void setAmplifier_output(long amplifier_output) {
+	public void setAmplifier_output(int amplifier_output) {
 		this.amplifier_output = amplifier_output;
 	}
 
@@ -316,20 +349,20 @@ public class S7_amplifier {
 	/**
 	 * @return the amplifier_state
 	 */
-	public long getAmplifier_state() {
+	public int getAmplifier_state() {
 		return amplifier_state;
 	}
 
 	/**
 	 * @return the amplifier_state
 	 */
-	public long getAmplifier_pointeur() {
-		return this.pointeur;
+	public int getAmplifier_pointeur() {
+		return (int)this.pointeur;
 	}
 	/**
 	 * @return the amplifier_state
 	 */
-//	public long getAmplifier_state() {
+//	public int getAmplifier_state() {
 //		return amplifier_state;
 //	}
 	
@@ -337,7 +370,7 @@ public class S7_amplifier {
 	/**
 	 * @param amplifier_state the amplifier_state to set
 	 */
-	public void setAmplifier_state(long amplifier_state) {
+	public void setAmplifier_state(int amplifier_state) {
 		this.amplifier_state = amplifier_state;
 	}
 	
@@ -352,25 +385,38 @@ public class S7_amplifier {
 //		break ;
 //	case 2 :
 //		break ;
-	private long lecture_pos_oper ( long num_oper , long mode) {
-		long pos_oper=0;
-		switch ((int) mode ) {
-		case 0 :
-			pos_oper = parts[(int) (pointeur + num_oper)  ] ;
+	/*
+	 * 	final int POSITION_MODE  = 0  ;
+	final int IMMEDIATE_MODE = 1  ;
+	final int RELATIVE_MODE  = 2  ;
+	 */
+	
+	private int lecture_pos_oper ( int num_oper , int mode) {
+		int pos_oper=0;
+		switch ( mode ) {
+		case POSITION_MODE :
+			pos_oper = (int) parts[(int) (pointeur + num_oper)  ] ;
 			// System.out.println(" pos_operande1 =   " + pos_operande1  ) ;
-			if (pos_oper >= nb_instructions  ) {
+			if (pos_oper >= parts.length  ) {
+				System.out.println(" pos_oper =   " + pos_oper  ) ;
 				pos_oper = 0 ;
 			}
 			
 			break ;
-		case 1 :
-			pos_oper = pointeur + num_oper   ;
-			if (pos_oper >= nb_instructions  ) {
+		case IMMEDIATE_MODE :
+			pos_oper = (int) (pointeur + num_oper  ) ;
+			if (pos_oper >= parts.length  ) {
+				System.out.println(" pos_oper =   " + pos_oper  ) ;
 				pos_oper = 0 ;
 			}
 			break ;
-		case 2 :
-			break ;
+		case RELATIVE_MODE :
+			// relative_base
+			pos_oper = (int) (parts[(int)pointeur  +num_oper ] )+ relative_base ;
+			if (pos_oper >= parts.length  ) {
+				System.out.println(" pos_oper =   " + pos_oper  ) ;
+				pos_oper = 0 ;
+			}break ;
 			
 		}
 		
