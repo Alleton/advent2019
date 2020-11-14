@@ -1,0 +1,121 @@
+ probleme  14
+******* vue.test ******
+Solve resources/AdventProject14_1.txt
+
+Tentative de resolution du projet : 14
+Chargement pb 14
+this line ;  9:ORE:2:A
+this line ;  8:ORE:3:B
+this line ;  7:ORE:5:C
+this line ;  3:A:4:B:1:AB
+this line ;  5:B:7:C:1:BC
+this line ;  4:C:1:A:1:CA
+this line ;  2:AB:3:BC:4:CA:1:FUEL
+ produit de reaction  A q = 2
+  key: ORE, value: 9
+ produit de reaction  AB q = 1
+  key: A, value: 3
+  key: B, value: 4
+ produit de reaction  BC q = 1
+  key: B, value: 5
+  key: C, value: 7
+ produit de reaction  B q = 3
+  key: ORE, value: 8
+ produit de reaction  C q = 5
+  key: ORE, value: 7
+ produit de reaction  FUEL q = 1
+  key: BC, value: 3
+  key: AB, value: 2
+  key: CA, value: 4
+ produit de reaction  CA q = 1
+  key: A, value: 1
+  key: C, value: 4
+ read done 
+predeceseurs ;  FUEL quantite = 1
+ mes besoins {BC=3, AB=2, CA=4}
+  key: BC, value: 3
+ besoin de  BC
+       quantite   3
+       quantite necessaire =   3
+predeceseurs ;  BC quantite = 3
+ mes besoins {B=5, C=7}
+  key: B, value: 5
+ besoin de  B
+       quantite   5
+       quantite necessaire =   15
+predeceseurs ;  B quantite = 15
+ mes besoins {ORE=8}
+  key: ORE, value: 8
+ besoin de  ORE
+       quantite   8
+       quantite ORE avant =   0
+       quantite ORE apres =   15
+  key: C, value: 7
+ besoin de  C
+       quantite   7
+       quantite necessaire =   21
+predeceseurs ;  C quantite = 21
+ mes besoins {ORE=7}
+  key: ORE, value: 7
+ besoin de  ORE
+       quantite   7
+       quantite ORE avant =   15
+       quantite ORE apres =   36
+  key: AB, value: 2
+ besoin de  AB
+       quantite   2
+       quantite necessaire =   2
+predeceseurs ;  AB quantite = 2
+ mes besoins {A=3, B=4}
+  key: A, value: 3
+ besoin de  A
+       quantite   3
+       quantite necessaire =   6
+predeceseurs ;  A quantite = 6
+ mes besoins {ORE=9}
+  key: ORE, value: 9
+ besoin de  ORE
+       quantite   9
+       quantite ORE avant =   36
+       quantite ORE apres =   42
+  key: B, value: 4
+ besoin de  B
+       quantite   4
+       quantite necessaire =   8
+predeceseurs ;  B quantite = 8
+ mes besoins {ORE=8}
+  key: ORE, value: 8
+ besoin de  ORE
+       quantite   8
+       quantite ORE avant =   42
+       quantite ORE apres =   50
+  key: CA, value: 4
+ besoin de  CA
+       quantite   4
+       quantite necessaire =   4
+predeceseurs ;  CA quantite = 4
+ mes besoins {A=1, C=4}
+  key: A, value: 1
+ besoin de  A
+       quantite   1
+       quantite necessaire =   4
+predeceseurs ;  A quantite = 4
+ mes besoins {ORE=9}
+  key: ORE, value: 9
+ besoin de  ORE
+       quantite   9
+       quantite ORE avant =   50
+       quantite ORE apres =   54
+  key: C, value: 4
+ besoin de  C
+       quantite   4
+       quantite necessaire =   16
+predeceseurs ;  C quantite = 16
+ mes besoins {ORE=7}
+  key: ORE, value: 7
+ besoin de  ORE
+       quantite   7
+       quantite ORE avant =   54
+       quantite ORE apres =   70
+q_ORE =  70
+Solution Solver14 solver 14

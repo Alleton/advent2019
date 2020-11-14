@@ -13,8 +13,9 @@ public class Reactions {
 	HashMap < String, Integer > hash_entry = new  HashMap <String ,Integer> ();
 
 	// Creation 
-	public Reactions ( String result  , int    q  ) {
-		this.resultat = result ;
+	public Reactions ( String nom  , int    q  ) {
+		//System.out.println(" creation =  Reactions "  + nom) ;
+		this.resultat = nom ;
 		this.q_resultat = q ;
 		// this .type = id ;
 	}
@@ -22,18 +23,31 @@ public class Reactions {
 	// visu une reaction
 	
 	public String toString() {
-		String visu = this.resultat + " q = " + this.q_resultat ;
-		System.out.print(visu);
+		String visu = " produit de reaction  "  + this.resultat + " q = " + this.q_resultat ;
+		System.out.println(visu);
 		
 		//  et les besoins
 		
 		for (Map.Entry<String, Integer> pair: hash_entry.entrySet()) {
-            System.out.format("key: %s, value: %d%n", pair.getKey(), pair.getValue());
+            System.out.format("  key: %s, value: %d%n", pair.getKey(), pair.getValue());
         }
 		
 		return visu;
 	}
 	
+	/*
+	 * exporte la has map
+	 */
+	 public HashMap<String, Integer> exporte () {
+		 return hash_entry ;
+	 }
+	
+	/*
+	 * copy la hasmap 
+	 */
+	public void copy_hash ( HashMap<String, Integer> hash_map ) {
+		this.hash_entry.putAll(hash_map); 
+	}
 	
 	/**
 	 * @return the resultat

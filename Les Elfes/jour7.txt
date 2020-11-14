@@ -82,6 +82,10 @@ Try every combination of the new phase settings on the amplifier feedback loop. 
 Although it hasn't changed, you can still get your puzzle input.
 
 Answer: 
+
+Solution Solver7 57660948  from [9, 7, 6, 5, 8]
+
+
  
 
 You can also [Share] this puzzle.

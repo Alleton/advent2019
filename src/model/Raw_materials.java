@@ -5,6 +5,17 @@ import java.util.HashMap;
 public class Raw_materials {
 	String name ;
 	int  quantite ;
+
+	/*
+	 * createur avec nom et quantite
+	 */
+	public  Raw_materials ( String nom , int q ) {
+		System.out.println(" creation =  Raw_materials "  + nom) ;
+		this.name = nom ;
+		this.quantite = q;
+	}
+	
+	
 	/**
 	 * @return the name
 	 */

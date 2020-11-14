@@ -1,0 +1,201 @@
+ probleme  10
+******* vue.test ******
+Solve resources/AdventProject10_1.txt
+
+Tentative de resolution du projet : 10
+Chargement pb 10
+Advent2019 day 10
+filename = resources/AdventProject10_1.txt
+test_asteroid 29 x_station 8 y_station 3
+.#....#####...#.................... fin ligne
+##...##.#####..##.................. fin ligne
+##...#...#.#####................... fin ligne
+..#.....#...###.................... fin ligne
+..#.#.....#....##.................. fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+................................... fin ligne
+
+test_asteroid 29
+set_angle   avec x =  1 et  y = 0
+set_angle   avec dx =  -7.0 et dy  = 3.0
+set_angle  4 eme quartier-1.1659045405098132
+1 at x = 1 et y = 0 angle = 5.117280766669773 en degres = 297.2707931596711
+test_asteroid 29 vu  1
+set_angle   avec x =  6 et  y = 0
+set_angle   avec dx =  -2.0 et dy  = 3.0
+set_angle  4 eme quartier-0.5880026035475675
+2 at x = 6 et y = 0 angle = 5.695182703632018 en degres = 330.84201486949274
+test_asteroid 29 vu  2
+set_angle   avec x =  7 et  y = 0
+set_angle   avec dx =  -1.0 et dy  = 3.0
+set_angle  4 eme quartier-0.3217505543966422
+3 at x = 7 et y = 0 angle = 5.961434752782944 en degres = 346.30901022120406
+test_asteroid 29 vu  3
+set_angle   avec x =  8 et  y = 0
+set_angle   avec dx =  0.0 et dy  = 3.0
+4 at x = 8 et y = 0 angle = 0.0 en degres = 0.0
+set_angle   avec x =  9 et  y = 0
+set_angle   avec dx =  1.0 et dy  = 3.0
+5 at x = 9 et y = 0 angle = 0.3217505543966422 en degres = 18.690989778795927
+test_asteroid 29 vu  5
+set_angle   avec x =  10 et  y = 0
+set_angle   avec dx =  2.0 et dy  = 3.0
+6 at x = 10 et y = 0 angle = 0.5880026035475675 en degres = 34.15798513050728
+test_asteroid 29 vu  6
+set_angle   avec x =  14 et  y = 0
+set_angle   avec dx =  6.0 et dy  = 3.0
+7 at x = 14 et y = 0 angle = 1.1071487177940904 en degres = 64.31598977879592
+set_angle   avec x =  0 et  y = 1
+set_angle   avec dx =  -8.0 et dy  = 2.0
+set_angle  4 eme quartier-1.3258176636680326
+8 at x = 0 et y = 1 angle = 4.957367643511554 en degres = 287.98119129386987
+test_asteroid 29 vu  8
+set_angle   avec x =  1 et  y = 1
+set_angle   avec dx =  -7.0 et dy  = 2.0
+set_angle  4 eme quartier-1.2924966677897853
+9 at x = 1 et y = 1 angle = 4.990688639389801 en degres = 289.91685973288014
+test_asteroid 29 vu  9
+set_angle   avec x =  5 et  y = 1
+set_angle   avec dx =  -3.0 et dy  = 2.0
+set_angle  4 eme quartier-0.982793723247329
+10 at x = 5 et y = 1 angle = 5.3003915839322575 en degres = 307.9079851305073
+test_asteroid 29 vu  10
+set_angle   avec x =  6 et  y = 1
+set_angle   avec dx =  -2.0 et dy  = 2.0
+set_angle  4 eme quartier-0.7853981633974483
+11 at x = 6 et y = 1 angle = 5.497787143782138 en degres = 319.375
+test_asteroid 29 vu  11
+set_angle   avec x =  8 et  y = 1
+set_angle   avec dx =  0.0 et dy  = 2.0
+12 at x = 8 et y = 1 angle = 0.0 en degres = 0.0
+test_asteroid 29 vu  12
+set_angle   avec x =  9 et  y = 1
+set_angle   avec dx =  1.0 et dy  = 2.0
+13 at x = 9 et y = 1 angle = 0.4636476090008061 en degres = 26.934010221204073
+test_asteroid 29 vu  13
+set_angle   avec x =  10 et  y = 1
+set_angle   avec dx =  2.0 et dy  = 2.0
+14 at x = 10 et y = 1 angle = 0.7853981633974483 en degres = 45.625
+set_angle   avec x =  11 et  y = 1
+set_angle   avec dx =  3.0 et dy  = 2.0
+15 at x = 11 et y = 1 angle = 0.982793723247329 en degres = 57.092014869492715
+test_asteroid 29 vu  15
+set_angle   avec x =  12 et  y = 1
+set_angle   avec dx =  4.0 et dy  = 2.0
+16 at x = 12 et y = 1 angle = 1.1071487177940904 en degres = 64.31598977879592
+test_asteroid 29 vu  16
+set_angle   avec x =  15 et  y = 1
+set_angle   avec dx =  7.0 et dy  = 2.0
+17 at x = 15 et y = 1 angle = 1.2924966677897853 en degres = 75.08314026711989
+test_asteroid 29 vu  17
+set_angle   avec x =  16 et  y = 1
+set_angle   avec dx =  8.0 et dy  = 2.0
+18 at x = 16 et y = 1 angle = 1.3258176636680326 en degres = 77.0188087061301
+set_angle   avec x =  0 et  y = 2
+set_angle   avec dx =  -8.0 et dy  = 1.0
+set_angle  4 eme quartier-1.446441332248135
+19 at x = 0 et y = 2 angle = 4.836743974931451 en degres = 280.9739749093032
+test_asteroid 29 vu  19
+set_angle   avec x =  1 et  y = 2
+set_angle   avec dx =  -7.0 et dy  = 1.0
+set_angle  4 eme quartier-1.4288992721907328
+20 at x = 1 et y = 2 angle = 4.854286034988854 en degres = 281.9930204424081
+test_asteroid 29 vu  20
+set_angle   avec x =  5 et  y = 2
+set_angle   avec dx =  -3.0 et dy  = 1.0
+set_angle  4 eme quartier-1.2490457723982544
+21 at x = 5 et y = 2 angle = 5.034139534781332 en degres = 292.44098977879594
+test_asteroid 29 vu  21
+set_angle   avec x =  9 et  y = 2
+set_angle   avec dx =  1.0 et dy  = 1.0
+22 at x = 9 et y = 2 angle = 0.7853981633974483 en degres = 45.625
+test_asteroid 29 vu  22
+set_angle   avec x =  11 et  y = 2
+set_angle   avec dx =  3.0 et dy  = 1.0
+23 at x = 11 et y = 2 angle = 1.2490457723982544 en degres = 72.55901022120408
+test_asteroid 29 vu  23
+set_angle   avec x =  12 et  y = 2
+set_angle   avec dx =  4.0 et dy  = 1.0
+24 at x = 12 et y = 2 angle = 1.3258176636680326 en degres = 77.0188087061301
+test_asteroid 29 vu  24
+set_angle   avec x =  13 et  y = 2
+set_angle   avec dx =  5.0 et dy  = 1.0
+25 at x = 13 et y = 2 angle = 1.373400766945016 en degres = 79.78298513050729
+test_asteroid 29 vu  25
+set_angle   avec x =  14 et  y = 2
+set_angle   avec dx =  6.0 et dy  = 1.0
+26 at x = 14 et y = 2 angle = 1.4056476493802699 en degres = 81.65625665019626
+test_asteroid 29 vu  26
+set_angle   avec x =  15 et  y = 2
+set_angle   avec dx =  7.0 et dy  = 1.0
+27 at x = 15 et y = 2 angle = 1.4288992721907328 en degres = 83.00697955759186
+test_asteroid 29 vu  27
+set_angle   avec x =  2 et  y = 3
+set_angle   avec dx =  -6.0 et dy  = 0.0
+28 at x = 2 et y = 3 angle = 4.71238898038469 en degres = 273.75
+test_asteroid 29 vu  28
+set_angle   avec x =  12 et  y = 3
+set_angle   avec dx =  4.0 et dy  = 0.0
+30 at x = 12 et y = 3 angle = 1.5707963267948966 en degres = 91.25
+test_asteroid 29 vu  30
+set_angle   avec x =  13 et  y = 3
+set_angle   avec dx =  5.0 et dy  = 0.0
+31 at x = 13 et y = 3 angle = 1.5707963267948966 en degres = 91.25
+set_angle   avec x =  14 et  y = 3
+set_angle   avec dx =  6.0 et dy  = 0.0
+32 at x = 14 et y = 3 angle = 1.5707963267948966 en degres = 91.25
+set_angle   avec x =  2 et  y = 4
+set_angle   avec dx =  -6.0 et dy  = -1.0
+set_angle  3 eme quartier1.4056476493802699
+33 at x = 2 et y = 4 angle = 4.547240302970063 en degres = 264.15625665019627
+test_asteroid 29 vu  33
+set_angle   avec x =  4 et  y = 4
+set_angle   avec dx =  -4.0 et dy  = -1.0
+set_angle  3 eme quartier1.3258176636680326
+34 at x = 4 et y = 4 angle = 4.4674103172578254 en degres = 259.5188087061301
+test_asteroid 29 vu  34
+set_angle   avec x =  10 et  y = 4
+set_angle   avec dx =  2.0 et dy  = -1.0
+set_angle  2 eme quartier-1.1071487177940904
+35 at x = 10 et y = 4 angle = 2.0344439357957027 en degres = 118.18401022120408
+test_asteroid 29 vu  35
+set_angle   avec x =  15 et  y = 4
+set_angle   avec dx =  7.0 et dy  = -1.0
+set_angle  2 eme quartier-1.4288992721907328
+36 at x = 15 et y = 4 angle = 1.7126933813990604 en degres = 99.49302044240814
+test_asteroid 29 vu  36
+set_angle   avec x =  16 et  y = 4
+set_angle   avec dx =  8.0 et dy  = -1.0
+set_angle  2 eme quartier-1.446441332248135
+37 at x = 16 et y = 4 angle = 1.695151321341658 en degres = 98.47397490930322
+test_asteroid 29 vu  37
+ vu done =  30
+ appel laser 
